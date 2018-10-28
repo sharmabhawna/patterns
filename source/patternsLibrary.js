@@ -33,7 +33,7 @@ const generateHollowLine = function (symbol, length){
   return hollowLine;
 }
 
-const generateFilledRectangle = function(pattern, width, height){
+const generateFilledRectangle = function(width, height){
   let delimiter = "";
   let result = "";
   for(let index = 0; index < height; index++){
@@ -69,6 +69,17 @@ const generateHollowRectangle = function(width, height){
   return result;
 }
 
+const generateRectangle = function(type, width, height) {
+  let rectangle = generateAlternatingRectangle(width, height);
+  if(type == "filled"){
+    rectangle = generateFilledRectangle(width, height);
+  }
+  if(type == "hollow"){
+    rectangle = generateHollowRectangle(width, height);
+  }
+  return rectangle;
+}
+
 const generateRightAlignedTriangle = function(height){
   let delimiter = "";
   let result = "";
@@ -92,6 +103,14 @@ const generateLeftAlignedTriangle = function(height){
     delimiter = "\n";
   }
   return result;
+}
+
+const generateTriangle = function(alingment, height) {
+  let triangle = generateRightAlignedTriangle(height);
+  if(alingment == "left"){
+    triangle = generateLeftAlignedTriangle(height);
+  }
+  return triangle;
 }
 
 const upperHalf = function(diamondType, height) {
@@ -164,11 +183,17 @@ const generateAngledDiamond = function(height) {
   return pattern;
 }
 
-exports.generateFilledDiamond = generateFilledDiamond;
-exports.generateHollowDiamond = generateHollowDiamond;
-exports.generateAngledDiamond = generateAngledDiamond;
-exports.generateFilledRectangle = generateFilledRectangle;
-exports.generateHollowRectangle = generateHollowRectangle;
-exports.generateAlternatingRectangle = generateAlternatingRectangle;
-exports.generateLeftAlignedTriangle = generateLeftAlignedTriangle;
-exports.generateRightAlignedTriangle = generateRightAlignedTriangle;
+const generateDiamond = function(type, height) {
+  let diamond = generateAngledDiamond(height);
+  if(type == "filled"){
+    diamond = generateFilledDiamond(height);
+  }
+  if(type == "hollow"){
+    diamond = generateHollowDiamond(height);
+  }
+  return diamond;
+}
+
+exports.generateRectangle = generateRectangle;
+exports.generateTriangle = generateTriangle;
+exports.generateDiamond = generateDiamond;
