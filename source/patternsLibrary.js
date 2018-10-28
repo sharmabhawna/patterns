@@ -184,6 +184,7 @@ const generateAngledDiamond = function(height) {
 }
 
 const generateDiamond = function(type, height) {
+  if(height % 2 == 0) { height = height - 1 };
   let diamond = generateAngledDiamond(height);
   if(type == "filled"){
     diamond = generateFilledDiamond(height);
