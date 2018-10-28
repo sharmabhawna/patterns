@@ -7,37 +7,18 @@ const repeatCharacter = function(character, times) {
 }
 
 const generateLine = function(leftEndSymbol, middleSymbol, rightEndSymbol, length) {
-  let line = leftEndSymbol
-  for(let index = 0; index < length-2; index++){
-    line = line + middleSymbol;
-  }
+  if(length == 1){ return leftEndSymbol; }
+  let line = leftEndSymbol;
+  line = line + repeatCharacter(middleSymbol, length-2);
   line = line + rightEndSymbol;
   return line;
-}
-
-const generateFilledLine = function(symbol, length){
-  let filledLine = "";
-  for(let index = 1; index <= length; index++){
-    filledLine = filledLine + symbol;
-  }
-  return filledLine;
-}
-
-const generateHollowLine = function (symbol, length){
-  let hollowLine = "";
-  hollowLine = hollowLine + symbol;
-  for(let index = 1; index <= length-2; index++){
-    hollowLine = hollowLine + " ";
-  }
-  hollowLine = hollowLine + symbol;
-  return hollowLine;
 }
 
 const generateFilledRectangle = function(width, height){
   let delimiter = "";
   let result = "";
   for(let index = 0; index < height; index++){
-    result = result + delimiter + generateFilledLine("*", width);
+    result = result + delimiter + generateLine("*", "*", "*", width);
     delimiter = "\n";
   }
   return result;
@@ -51,7 +32,7 @@ const generateAlternatingRectangle = function(width,height){
     if(index % 2 != 0){
       symbol = "-";
     }
-    result = result + delimiter + generateFilledLine(symbol, width);
+    result = result + delimiter + generateLine(symbol, symbol, symbol, width);
     delimiter = "\n";
   }
   return result;
@@ -60,12 +41,12 @@ const generateAlternatingRectangle = function(width,height){
 const generateHollowRectangle = function(width, height){
   let delimiter = "";
   let result = "";
-  result = generateFilledLine("*", width);
+  result = generateLine("*", "*", "*", width);
   delimiter = "\n";
   for(let index = 2; index <= height-1; index++){
-    result = result + delimiter + generateHollowLine("*", width);
+    result = result + delimiter + generateLine("*", " ", "*", width);
   }
-  result = result + delimiter + generateFilledLine("*", width);
+  result = result + delimiter + generateLine("*", "*", "*", width);
   return result;
 }
 
@@ -84,9 +65,8 @@ const generateRightAlignedTriangle = function(height){
   let delimiter = "";
   let result = "";
   for(let index = 1; index <= height; index++){
-    let line = "";
-    line = line + generateFilledLine(" ", height-index);
-    line  = line + generateFilledLine("*", index);
+    let line = repeatCharacter(" ", height-index);
+    line  = line + generateLine("*", "*", "*", index);
     result = result + delimiter + line;
     delimiter = "\n";
   }
@@ -97,8 +77,7 @@ const generateLeftAlignedTriangle = function(height){
   let delimiter = "";
   let result = "";
   for(let index = 1; index <= height; index++){
-    let line = "";
-    line  = line + generateFilledLine("*", index);
+    let line  = generateLine("*", "*", "*", index);
     result = result + delimiter + line;
     delimiter = "\n";
   }
