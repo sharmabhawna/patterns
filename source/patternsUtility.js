@@ -1,16 +1,17 @@
 const repeatCharacter = function(character, times) {
-  let result = "";
+  let line = "";
   for(let count = 0; count < times; count++){
-    result = result + character;
+    line = line + character;
   }
-  return result;
+  return line;
 }
 
 const generateLine = function(leftEndSymbol, middleSymbol, rightEndSymbol, length) {
-  if(length == 1){ return leftEndSymbol; }
-  let line = leftEndSymbol;
+  let leftBorderWidth = 1 % (length+1);
+  let rightBorderwidth = 1 % length;
+  let line = repeatCharacter(leftEndSymbol, leftBorderWidth);
   line = line + repeatCharacter(middleSymbol, length-2);
-  line = line + rightEndSymbol;
+  line = line + repeatCharacter(rightEndSymbol, rightBorderwidth);
   return line;
 }
 
@@ -33,7 +34,6 @@ const upperHalf = function(diamondType, height) {
     }
     pattern = pattern + delimiter + line;
     delimiter = "\n";
-
   }
   return top + delimiter + pattern;
 }
