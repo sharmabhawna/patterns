@@ -1,12 +1,12 @@
 const lib = require('./source/patternsLibrary.js');
+const utilLib = require('./source/patternsUtility.js');
 
 const { generateRectangle } = lib;
+const { getInput } = utilLib;
 
 const main = function(){
-  let type = process.argv[2];
-  let width = +process.argv[3];
-  let height = +process.argv[4];
-  let rectangle = generateRectangle(type, width, height);
+  let parameters = getInput();
+  let rectangle = generateRectangle(parameters);
   console.log (rectangle);
 }
 

@@ -41,13 +41,13 @@ const generateHollowRectangle = function(width, height){
   return result;
 }
 
-const generateRectangle = function(type, width, height) {
-  let rectangle = generateAlternatingRectangle(width, height);
-  if(type == "filled"){
-    rectangle = generateFilledRectangle(width, height);
+const generateRectangle = function(parameters) {
+  let rectangle = generateAlternatingRectangle(parameters.width, parameters.height);
+  if(parameters.type == "filled"){
+    rectangle = generateFilledRectangle(parameters.width, parameters.height);
   }
-  if(type == "hollow"){
-    rectangle = generateHollowRectangle(width, height);
+  if(parameters.type == "hollow"){
+    rectangle = generateHollowRectangle(parameters.width, parameters.height);
   }
   return rectangle;
 }
@@ -75,10 +75,10 @@ const generateLeftAlignedTriangle = function(height){
   return result;
 }
 
-const generateTriangle = function(alingment, height) {
-  let triangle = generateRightAlignedTriangle(height);
-  if(alingment == "left"){
-    triangle = generateLeftAlignedTriangle(height);
+const generateTriangle = function(parameters) {
+  let triangle = generateRightAlignedTriangle(parameters.height);
+  if(parameters.type == "left"){
+    triangle = generateLeftAlignedTriangle(parameters.height);
   }
   return triangle;
 }
@@ -107,7 +107,9 @@ const generateAngledDiamond = function(height) {
   return pattern;
 }
 
-const generateDiamond = function(type, height) {
+const generateDiamond = function(parameters) {
+  let { type } = parameters;
+  let { height } = parameters;
   if(height % 2 == 0) { height = height - 1 };
   let diamond = generateAngledDiamond(height);
   if(type == "filled"){

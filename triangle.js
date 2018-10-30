@@ -1,11 +1,12 @@
 const lib = require('./source/patternsLibrary.js');
+const utilLib = require('./source/patternsUtility.js');
 
 const { generateTriangle } = lib;
+const { getInput } = utilLib;
 
 const main = function(){
-  let alignment = process.argv[2];
-  let height = +process.argv[3];
-  let triangle = generateTriangle(alignment, height);
+  let parameters = getInput();
+  let triangle = generateTriangle(parameters);
   console.log (triangle);
 }
 
