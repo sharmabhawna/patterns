@@ -1,30 +1,55 @@
 const utilLib = require('./patternsUtility.js');
 
 const { repeatCharacter,
-  generateRectangleParameters,
-  generateStarLine,
-  generateDashLine,
-  generateHollowLine,
+  generateLine,
   upperHalf,
   bottomHalf } = utilLib;
 
-const generateFilledRectangle = rectangleGenerator(generateStarLine, generateStarLine, generateStarLine);
+const generateFilledRectangle = function(width, height){
+  let delimiter = "";
+  let result = "";
+  for(let index = 0; index < height; index++){
+    result = result + delimiter + generateLine("*", "*", "*", width);
+    delimiter = "\n";
+  }
+  return result;
+}
 
-const generateHollowRectangle = rectangleGenerator(generateStarLine, generateHollowLine, generateStarLine);
+const generateAlternatingRectangle = function(width,height){
+  let delimiter = "";
+  let result = "";
+  for(let index = 0; index < height; index++){
+    let symbol = "*";
+    if(index % 2 != 0){
+      symbol = "-";
+    }
+    result = result + delimiter + generateLine(symbol, symbol, symbol, width);
+    delimiter = "\n";
+  }
+  return result;
+}
 
-const rectangleGenerator = function(topLine, middleLine, bottomLine) {
-  return function(width, height){
-    let top = topLine(width);
-    let middle =  generateRectangleParameters(width, height-2).map(middleLine).join("\n");
-    let bottom =  bottomLine(width);
-    return top + "\n" + middle + "\n" + bottom;
+const generateHollowRectangle = function(width, height){
+  let delimiter = "";
+  let result = "";
+  result = generateLine("*", "*", "*", width);
+  delimiter = "\n";
+  for(let index = 2; index <= height-1; index++){
+    result = result + delimiter + generateLine("*", " ", "*", width);
+  }
+  result = result + delimiter + generateLine("*", "*", "*", width);
+  return result;
 }
 
 const generateRectangle = function(parameters) {
   let rectangle = generateAlternatingRectangle(parameters.width, parameters.height);
   if(parameters.type == "filled"){
-    generateFilledRectangle(parameters.width, parameters.height);
+    rectangle = generateFilledRectangle(parameters.width, parameters.height);
   }
+  if(parameters.type == "hollow"){
+    rectangle = generateHollowRectangle(parameters.width, parameters.height);
+  }
+  return rectangle;
 }
 
 const generateRightAlignedTriangle = function(height){
